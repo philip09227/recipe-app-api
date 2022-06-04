@@ -1,0 +1,7 @@
+flake8>=3.9.2,<3.10 
+
+# why this files because modify build 
+# so that we only install these dev requirements when 
+# building an image for our local dev server 
+# seperate dev depenecy and running version 
+

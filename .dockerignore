@@ -1,0 +1,20 @@
+# allows to specify a list of files that are going to be excluded from the docker context 
+# file list here will not send to docker context 
+
+# we do not need git whihch is big 
+# git 
+.git 
+.gitignore 
+#docker 
+.docker 
+
+#python 
+# ignore the file which creat by pie cache 
+app/__pycache__/
+app/*/__pycache__/
+app/*/*/__pycache__/
+app/*/*/*/__pycache__/
+# also remove the virtual environment 
+.env/
+.venv/
+venv/ 

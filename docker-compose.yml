@@ -1,0 +1,24 @@
+version: "3.9"
+
+# specify services 
+#
+services:
+  #name of the services , services goona run our docker file 
+  app:
+    # build the services at current directory 
+    build:
+      context: .
+      args:
+        - DEV=true 
+    # mapping the port in our local machine to the port in docker container 
+    # how we want to access network connect to the network 
+    ports:
+      - "8000:8000"
+    # mappinf the direction we created in the porject to the app inside our container 
+    # when we update code in our local project will reflect in the running continaer in real time 
+    # no need to rebuild the container 
+    volumes:
+      - ./app:/app
+    # commmand use to the services 
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
