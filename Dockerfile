@@ -25,6 +25,14 @@ ARG DEV=false
 RUN python -m venv /py && \ 
 #upgrade the python package manger inside out virtual environment 
     /py/bin/pip install --upgrade pip && \
+# install pg package which we're going to need installed inside our Alpine image 
+# in order for pyscpg2 to coonect to pg 
+    apk add --update --no-cache postgresql-client && \
+# install virtual dependencies package install into temp build deps 
+# use for remove the package after in docker file 
+    apk add --update --no-cache --virtual .tmp-build-deps \
+# the package needed in order to install our PG adapter 
+        build-base postgresql-dev musl-dev && \
 # install the requirement file 
     /py/bin/pip install -r /tmp/requirements.txt && \
 # run the shell command in condition  
@@ -33,6 +41,7 @@ RUN python -m venv /py && \
     fi && \
     # remove the tmp directory to make sure that theres no any extra depen.
     rm -rf /tmp && \
+    apk del .tmp-build-deps && \
     adduser \
         --disabled-password \
         --no-create-home \
